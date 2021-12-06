@@ -1,0 +1,53 @@
+from ete3 import Tree
+# Load trees
+bac_tree = Tree('/content/drive/My Drive/notebooks/uhlemann/data/IGG_v1.0_bact_22515.tre')
+# Don't do archaea: we don't get any PTRs for them anyway
+
+# Prune trees to just our gut reference species
+order = [] # This is actually sufficient, I think, since get_leaves preserves order
+keep = []
+for x in bac_tree.get_leaves():
+  # Filter on presence in IGG database and existence of a PTR estimate
+  matches = IGG[IGG['species_alt_id'] == int(x.name)]
+  if len(matches) > 0 and matches.index[0] in ptrs_T.columns:
+    keep += [x]
+    order += list(matches.index)
+bac_tree.prune(keep, preserve_branch_length=True)
+
+
+for column in df.cols:
+	# Getting and filtering
+	ptrs = df[col]
+	ptrs = ptrs[ptrs > 0]
+	OR ptrs = ptrs[~np.isnan(ptrs)]
+	
+	keep = list(ptrs.index)
+	# Tree leaves only have value
+	new_subtree = tree.prune(keep, preserve_branch_length=True)# Tree data type
+	lambda = pagels_lambda(ptrs, new_subtree)
+	results.append(lambda)
+
+df.stack()
+
+
+
+# Get trees from the IGG people and pare them down
+# Load trees x is the leave of the tree
+bac_tree = Tree('/content/drive/My Drive/notebooks/uhlemann/data/IGG_v1.0_bact_22515.tre')
+# Don't do archaea: we don't get any PTRs for them anyway
+
+# Prune trees to just our gut reference species
+order = [] # This is actually sufficient, I think, since get_leaves preserves order
+keep = []
+for x in bac_tree.get_leaves():
+  # Filter on presence in IGG database and existence of a PTR estimate
+  matches = IGG[IGG['species_alt_id'] == int(x.name)]
+  if len(matches) > 0 and matches.index[0] in ptrs_T.columns:
+    keep += [x]
+    order += list(matches.index)
+bac_tree.prune(keep, preserve_branch_length=True)
+
+print(len(order))
+
+
+pd.read_pickle()

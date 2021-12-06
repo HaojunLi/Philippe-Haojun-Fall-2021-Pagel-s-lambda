@@ -1,0 +1,54 @@
+18:35:15 From Philippe Chlenski to Everyone:
+	matches = IGG[IGG['species_alt_id'] == int(x.name)]
+18:35:32 From Philippe Chlenski to Everyone:
+	# Get trees from the IGG people and pare them down
+	
+	
+	# Load trees
+	bac_tree = Tree('/content/drive/My Drive/notebooks/uhlemann/data/IGG_v1.0_bact_22515.tre')
+	# Don't do archaea: we don't get any PTRs for them anyway
+	
+	# Prune trees to just our gut reference species
+	order = [] # This is actually sufficient, I think, since get_leaves preserves order
+	keep = []
+	for x in bac_tree.get_leaves():
+	  # Filter on presence in IGG database and existence of a PTR estimate
+	  matches = IGG[IGG['species_alt_id'] == int(x.name)]
+	  if len(matches) > 0 and matches.index[0] in ptrs_T.columns:
+	    keep += [x]
+	    order += list(matches.index)
+	bac_tree.prune(keep, preserve_branch_length=True)
+	
+	print(len(order))
+18:39:23 From Philippe Chlenski to Everyone:
+	pd.read_pickle()
+18:47:16 From Philippe Chlenski to Everyone:
+	pandas.__version__
+19:00:48 From Philippe Chlenski to Everyone:
+	http://etetoolkit.org/
+19:01:35 From Philippe Chlenski to Everyone:
+	https://github.com/etetoolkit/ete
+19:02:47 From Philippe Chlenski to Everyone:
+	http://etetoolkit.org/docs/latest/tutorial/tutorial_trees.html#reading-and-writing-newick-trees
+19:04:37 From Philippe Chlenski to Everyone:
+	P
+19:04:42 From Philippe Chlenski to Everyone:
+	https://biopython.org/wiki/Phylo
+19:04:49 From Philippe Chlenski to Everyone:
+	The second argument to each function is the target format. Currently, the following formats are supported:
+	
+	    newick
+	    nexus
+	    nexml
+	    phyloxml
+	    cdao
+19:05:51 From Philippe Chlenski to Everyone:
+	tree2 = Phylo.read("tree.tre", "nexus")
+19:05:58 From Philippe Chlenski to Everyone:
+	convert()
+	
+	Given two files (or handles) and two formats, both supported by Bio.Phylo, convert the first file from the first format to the second format, writing the output to the second file.
+	
+	Phylo.convert("example.nhx", "newick", "example2.nex", "nexus")
+19:09:46 From Philippe Chlenski to Everyone:
+	http://etetoolkit.org/docs/latest/reference/reference_tree.html?highlight=tree
